@@ -14,4 +14,4 @@ ENV WG_LOG_LEVEL=info \
     WG_THREADS=4
 
 RUN apt-get update && apt-get install -y --no-install-suggests wireguard-tools iproute2 iptables tcpdump
-CMD ["wg-quick", "up", "$1]
+CMD ["wg-quick", "up", "$1"]
