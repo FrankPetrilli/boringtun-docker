@@ -1,11 +1,11 @@
-FROM rust:slim AS builder
+FROM rust:1.40-slim-buster AS builder
 
 WORKDIR /src
 COPY boringtun .
 RUN cargo build --release \
     && strip ./target/release/boringtun
 
-FROM debian:testing-slim
+FROM debian:buster-slim
 
 WORKDIR /app
 COPY --from=builder /src/target/release/boringtun /app
