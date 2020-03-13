@@ -35,7 +35,7 @@ spec:
             value: "1"
           - name: WG_QUICK_USERSPACE_IMPLEMENTATION
             value: "/app/boringtun"
-        args: ["-c", "wg-quick up wg0 && sleep 9999999999"]
+        args: ["-c", "wg-quick up wg0 && sleep infinity"]
         volumeMounts:
         - name: config
           mountPath: /etc/wireguard/
