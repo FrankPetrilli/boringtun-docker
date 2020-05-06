@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  boringtun:
+    privileged: true
+    image: frankpetrilli/boringtun
+    container_name: boringtun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "587:587/udp"
+    devices:
+      - "/dev/net/tun:/dev/net/tun"
+    volumes:
+      - "./wg0.conf:/etc/wireguard/wg0.conf"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "400k"
+        max-file: "20"
+    environment:
+      INTERFACE_NAME: "wg0"
+      WG_SUDO: "1"
+      WG_QUICK_USERSPACE_IMPLEMENTATION: "/app/boringtun"
+    entrypoint: /bin/bash
+    command: -c "wg-quick up wg0 && sleep infinity"
