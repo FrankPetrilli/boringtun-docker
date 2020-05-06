@@ -6,6 +6,7 @@ Wireguard but userspace and in containers and kubernetes-compatiable.
 
 Check out the /k8s directory for kubernetes examples
 
+Check out the /docker-compose directory for docker-compose example
 
 ## Contributing
 
