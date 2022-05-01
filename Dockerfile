@@ -1,17 +1,13 @@
-FROM rust:1.40-slim-buster AS builder
-
+FROM rust:1.60-alpine3.15 AS builder
 WORKDIR /src
 COPY boringtun .
-RUN cargo build --release \
+RUN apk update && apk add g++ && cargo build --release \
     && strip ./target/release/boringtun
 
-FROM debian:buster-slim
-
+FROM alpine:3.15
 WORKDIR /app
 COPY --from=builder /src/target/release/boringtun /app
-
 ENV WG_LOG_LEVEL=info \
     WG_THREADS=4
-
-RUN apt-get update && apt-get install -y --no-install-suggests wireguard-tools iproute2 iptables tcpdump
+RUN apk update && apk add wireguard-tools
 CMD ["wg-quick", "up", "$1"]
